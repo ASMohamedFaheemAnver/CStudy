@@ -3,10 +3,16 @@
 #include <math.h>
 #include <stdlib.h>
 
+void update(int *a, int *b){
+    int temp = *a;
+    *a = *a + *b;
+    *b = *b - temp;
+}
 
 
 int main()
 {
+    /*
     int a, b;
     scanf("%d\n%d", &a, &b);
 
@@ -74,6 +80,29 @@ int main()
                 }
             }
     }
+     */
+
+    /*
+    int n;
+    scanf("%d", &n);
+
+    int x;
+    int sum = 0;
+    while (n!=0){
+        x = n%10;
+        n = (n-x)/10;
+        sum = sum + x;
+    }
+
+    printf("%d", sum);
+    */
+
+    int a, b;
+    int *pa = &a, *pb = &b;
+
+    scanf("%d %d", &a, &b);
+    update(pa, pb);
+    printf("%d\n%d", a, b);
 
     return 0;
 }
