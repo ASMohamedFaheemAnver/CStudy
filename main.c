@@ -1,9 +1,9 @@
-/*
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
 
+/*
 void update(int *a, int *b){
     int temp = *a;
     *a = *a + *b;
@@ -106,7 +106,7 @@ int main()
     return 0;
 }
 
- */
+
 
 #include <assert.h>
 #include <limits.h>
@@ -174,4 +174,22 @@ char* readline() {
 
     return data;
 }
+
+*/
+
+
+
+
+int main() {
+    int a;
+    long b;
+    char c;
+    float d;
+    double e;
+
+    scanf("%d %ld %c %f %lf", &a, &b, &c, &d, &e);
+    printf("%d\n%ld\n%c\n%.3f\n%.9lf", a, b, c, d, e);
+    return 0;
+}
+
 
