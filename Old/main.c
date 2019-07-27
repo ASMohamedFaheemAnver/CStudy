@@ -308,4 +308,3 @@ int main()
     sem_destroy(&mutex);
     return 0;
 }
-

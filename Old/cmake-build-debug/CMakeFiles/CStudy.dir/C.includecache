@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubunturifa/Desktop/GitHub/CStudy/main.c
+stdio.h
+-
+string.h
+-
+math.h
+-
+stdlib.h
+-
+assert.h
+-
+limits.h
+-
+math.h
+-
+stdbool.h
+-
+stddef.h
+-
+stdint.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+pthread.h
+-
+semaphore.h
+-
+unistd.h
+-
+
