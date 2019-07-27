@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/ubunturifa/Desktop/GitHub/CStudy/main.c" "/home/ubunturifa/Desktop/GitHub/CStudy/cmake-build-debug/CMakeFiles/CStudy.dir/main.c.o"
+  "/home/ubunturifa/Desktop/GitHub/CStudy/Old/main.c" "/home/ubunturifa/Desktop/GitHub/CStudy/Old/cmake-build-debug/CMakeFiles/CStudy.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

@@ -1,3 +1,3 @@
-/home/ubunturifa/Desktop/GitHub/CStudy/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/ubunturifa/Desktop/GitHub/CStudy/cmake-build-debug/CMakeFiles/CStudy.dir
-/home/ubunturifa/Desktop/GitHub/CStudy/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ubunturifa/Desktop/GitHub/CStudy/Old/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/ubunturifa/Desktop/GitHub/CStudy/Old/cmake-build-debug/CMakeFiles/CStudy.dir
+/home/ubunturifa/Desktop/GitHub/CStudy/Old/cmake-build-debug/CMakeFiles/edit_cache.dir
