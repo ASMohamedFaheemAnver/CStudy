@@ -1,61 +1,67 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-typedef  char Stack_Entry_Type;
-typedef enum{true, false}Boolean;
+typedef char StackEntryType;
+
+typedef enum {true, false}Boolean;
 
 typedef struct node{
-    Stack_Entry_Type entry;
-    struct node * Next;
+    StackEntryType entry;
+    struct node * next;
 }Node;
 
 typedef struct{
-    int no_ele;
+    int noOfElements;
     Node * top;
-}stack;
+}Stack;
 
-void Create_Stack(stack *S){
-    S->no_ele = 0;
-    S->top = NULL;
+void createStack(Stack *stack){
+    stack->noOfElements = 0;
+    stack->top = NULL;
 }
 
-Boolean Is_Stack_Empty(stack *S){
-    return (S->no_ele==0);
+void push(Stack *stack, StackEntryType entry){
+    Node *newNode;
+    newNode = (Node*)malloc(sizeof(Node));
+    newNode->entry = entry;
+    newNode->next = stack->top;
+    stack->top = newNode;
+    stack->noOfElements++;
 }
 
-void Push(stack *S, Stack_Entry_Type item){
-    Node *np;
-    np = (Node*)malloc(sizeof(Node));
-    np->entry = item;
-    np->Next = S->top;
-    S->top = np;
-    S->no_ele++;
+void pop(Stack *stack, StackEntryType *entry){
+    // We don't need newNode to hold the top
+    // Node *newNode;
+    // newNode = stack->top;
+    *entry = stack->top->entry;
+    stack->noOfElements--;
+    stack->top = stack->top->next;
+    // stack->top = newNode->next;
+    // free(newNode);
 }
 
-void Pop(stack *S, Stack_Entry_Type *item){
-    Node *np;
-    // np = (Node*)malloc(sizeof(Node));
-    *item = S->top->entry;
-    np = S->top;
-    S->top = np->Next;
-    S->no_ele--;
-    free(np);
+Boolean isStackEmpty(Stack *stack){
+    return (stack->noOfElements==0);
 }
 
-void main()
-{
+void main() {
     int i;
-    stack S;
-    Stack_Entry_Type item;
-    Create_Stack(&S);
-    char Str[] = "I love RiFa";
+    Stack stack;
 
-    for(i=0; Str[i]!='\0'; i++){
-        Push(&S, Str[i]);
+    StackEntryType entry;
+
+    createStack(&stack);
+    char string[] = "I love RiFa";
+
+    for (int i = 0; string[i]!='\0'; i++) {
+        push(&stack, string[i]);
     }
 
-    while(!Is_Stack_Empty(&S)){
-        Pop(&S, &item);
-        putchar(item);
+    while (!isStackEmpty(&stack)){
+        pop(&stack, &entry);
+        putchar(entry);
     }
+    printf("\n");
+    printf("%d", stack.noOfElements);
+
 }
