@@ -34,7 +34,7 @@ void Push(stack *S, Stack_Entry_Type item){
 
 void Pop(stack *S, Stack_Entry_Type *item){
     Node *np;
-    np = (Node*)malloc(sizeof(Node));
+    // np = (Node*)malloc(sizeof(Node));
     *item = S->top->entry;
     np = S->top;
     S->top = np->Next;
@@ -47,9 +47,8 @@ void main()
     int i;
     stack S;
     Stack_Entry_Type item;
-
     Create_Stack(&S);
-    char Str[] = "I love rifa";
+    char Str[] = "I love RiFa";
 
     for(i=0; Str[i]!='\0'; i++){
         Push(&S, Str[i]);
