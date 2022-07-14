@@ -44,7 +44,11 @@ void slot_alloc(int i) {
 }
 
 void display(int i){
-    printf("Size : %c | Occupy : %s\n", pk_slot[i].size, pk_slot[i].occupy == true ? "true" : "false");
+    printf("Slot Size : %c | Slot Occupied : %s ", pk_slot[i].size, pk_slot[i].occupy == true ? "true" : "false");
+    if(pk_slot[i].occupy == true){
+        printf("| Vehicle No : %s | Vehicle Colour : %s | Vehicle Width : %c", pk_slot[i].vh.car_no, pk_slot[i].vh.colour, pk_slot[i].vh.width);
+    }
+    printf("\n");
 }
 
 void vehicle_detail(char v_no[7]){
@@ -77,13 +81,15 @@ void main()
     scanf("%d", &lastDigitOfRegistrationNumber);
     int i = 0+lastDigitOfRegistrationNumber;
     slot_alloc(i);
+    printf("################ PARKING STOP CURRENT STATE ################\n");
     for(int k = 0; k<i; k++){
         display(k);
     }
+    printf("#############################################################\n");
     bool exit = false;
     while (exit != true){
         char v_no[7];
-        printf("Enter vehicle number you want to park  : ");
+        printf("Enter vehicle number you want to park : ");
         scanf("%s", v_no);
         vehicle_detail(v_no);
         bool isParked = false;
@@ -94,12 +100,14 @@ void main()
             }
         }
         if(isParked == true){
-            printf("Parked %s!\n", vehicle.car_no);
+            printf("Parked vehicle with no : %s!\n", vehicle.car_no);
         } else{
-            printf("Can't park %s!\n", vehicle.car_no);
+            printf("Can't park vehicle with no : %s!\n", vehicle.car_no);
         }
+        printf("################ PARKING STOP CURRENT STATE ################\n");
         for(int k = 0; k<i; k++){
             display(k);
         }
+        printf("#############################################################\n");
     }
 }
