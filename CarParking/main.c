@@ -16,7 +16,7 @@ typedef struct time
 
 typedef struct vehicle
 {
-    char car_no[7];
+    char car_no[8];
     char colour[10];
     char width;
     bool parked;
@@ -54,7 +54,7 @@ void display(int i){
     printf("\n");
 }
 
-void vehicle_detail(char v_no[7]){
+void vehicle_detail(char v_no[]){
     strcpy(vehicle.car_no, v_no);
     printf("Enter colour of the vehicle(%s)  : ", vehicle.car_no);
     scanf("%s", vehicle.colour);
@@ -87,14 +87,14 @@ bool park_slot(int i){
     return false;
 }
 
-bool is_parked(int i, char car_no[]){
-    return strcmp(car_no, pk_slot[i].vh.car_no) == 0;
+bool is_parked(int i, char car_no[8]){
+    return pk_slot[i].occupy == true && strcmp(car_no, pk_slot[i].vh.car_no) == 0;
 }
 
 void main()
 {
-    int lastDigitOfRegistrationNumber = 8;
-    int i = 10+lastDigitOfRegistrationNumber;
+    int lastDigitOfRegistrationNumber = 0;
+    int i = 3+lastDigitOfRegistrationNumber;
     slot_alloc(i);
     printf("################ PARKING STOP CURRENT STATE ################\n");
     for(int k = 0; k<i; k++){
@@ -103,7 +103,7 @@ void main()
     printf("#############################################################\n");
     bool exit = false;
     while (exit != true){
-        char v_no[7];
+        char v_no[8];
         printf("Note: If you enter parked vehicle, we will initialize remove them from slot\n");
         printf("Enter vehicle number you want to park or remove : ");
         scanf("%s", v_no);
