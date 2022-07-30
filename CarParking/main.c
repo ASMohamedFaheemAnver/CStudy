@@ -48,6 +48,8 @@ void display(int i){
     printf("Slot Size : %c | Slot Occupied : %s ", pk_slot[i].size, pk_slot[i].occupy == true ? "true" : "false");
     if(pk_slot[i].occupy == true){
         printf("| Vehicle No : %s | Vehicle Colour : %s | Vehicle Width : %c | Vehicle in time : %d:%d", pk_slot[i].vh.car_no, pk_slot[i].vh.colour, pk_slot[i].vh.width, pk_slot[i].vh.in_time.hour, pk_slot[i].vh.in_time.minute);
+    } else{
+        printf("| No vehicle parked!");
     }
     printf("\n");
 }
@@ -91,8 +93,8 @@ bool is_parked(int i, char car_no[]){
 
 void main()
 {
-    int lastDigitOfRegistrationNumber = 2;
-    int i = 0+lastDigitOfRegistrationNumber;
+    int lastDigitOfRegistrationNumber = 8;
+    int i = 10+lastDigitOfRegistrationNumber;
     slot_alloc(i);
     printf("################ PARKING STOP CURRENT STATE ################\n");
     for(int k = 0; k<i; k++){
