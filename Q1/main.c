@@ -14,6 +14,72 @@ typedef struct row
     double column3;
 } Row;
 
+// Search keyword linearly
+Row searchRowLinearly(Row *rows, int length, char searchKey[])
+{
+    for (int i = 0; i < length; i++)
+    {
+        if (strcmp(rows[i].column0, searchKey) == 0)
+        {
+            return rows[i];
+        }
+    }
+    Row notFoundRow;
+    strcpy(notFoundRow.column0, "NULL");
+    return notFoundRow;
+}
+
+// Search keyword linearly
+Row searchRowBinary(Row *rows, int front, int end, char searchKey[])
+{
+    if (end >= front)
+    {
+        int mid = front + (end - front) / 2;
+        if (strcmp(rows[mid].column0, searchKey) == 0)
+            return rows[mid];
+        if (strcmp(rows[mid].column0, searchKey) > 0)
+            return searchRowBinary(rows, front, mid - 1, searchKey);
+        return searchRowBinary(rows, mid + 1, end, searchKey);
+    }
+
+    Row notFoundRow;
+    strcpy(notFoundRow.column0, "NULL");
+    return notFoundRow;
+}
+
+// Write modified rows inside output.txt file
+void writeRows(Row *rows, int length)
+{
+    // Assigning it to empty string to avoid garbage values concatenated to the string
+    char text[1000] = "";
+    // Max int and double caster string length
+    int stringHolderLength = 50;
+    // Will hold casted double and int
+    char stringHolder[stringHolderLength];
+
+    // Iterate through rows and concat them to single string
+    for (int i = 0; i < length; i++)
+    {
+        strcat(text, rows[i].column0);
+        snprintf(stringHolder, stringHolderLength, " %d ", rows[i].column1);
+        strcat(text, stringHolder);
+        snprintf(stringHolder, stringHolderLength, "%d ", rows[i].column2);
+        strcat(text, stringHolder);
+        snprintf(stringHolder, stringHolderLength, "%.2f", rows[i].column3);
+        strcat(text, stringHolder);
+        strcat(text, "\n");
+    }
+    // Creating file pointer
+    FILE *fp;
+    // Opening file with name output.txt in writing mode
+    fp = fopen("../output.txt", "w");
+    // Write the file with concatenated string
+    fprintf(fp, "%s", text);
+    // Closing the file pointer
+    fclose(fp);
+}
+
+// Swap two values
 void swapRow(Row *a, Row *b)
 {
     Row temp = *a;
@@ -133,8 +199,13 @@ void main()
     //        bubbleSortRowsDesc(rows, rowsLength);
     //    displayRows(rows, rowsLength);
 
-    selectionSortRowsAsc(rows, rowsLength);
-    displayRows(rows, rowsLength);
-    selectionSortRowsDesc(rows, rowsLength);
-    displayRows(rows, rowsLength);
+    //    selectionSortRowsAsc(rows, rowsLength);
+    //    displayRows(rows, rowsLength);
+    //    selectionSortRowsDesc(rows, rowsLength);
+    //    displayRows(rows, rowsLength);
+    writeRows(rows, rowsLength);
+    char keyword[] = "string1";
+    int front = 0;
+    Row foundRow = searchRowBinary(rows, front, rowsLength - 1, keyword);
+    printf("");
 }
