@@ -14,6 +14,47 @@ typedef struct row
     double column3;
 } Row;
 
+// Row node for link list block
+typedef struct rowNode
+{
+    Row row;
+    struct rowNode *next;
+    struct rowNode *previous;
+} RowNode;
+
+// Row link list struct
+typedef struct
+{
+    RowNode *topNode;
+} RowLinkList;
+
+// Initialize linked list
+void createRowLinkList(RowLinkList *rowLinkList)
+{
+    rowLinkList->topNode = NULL;
+}
+
+// Push row in front position
+void pushRowToLinkList(RowLinkList *rowLinkList, Row row)
+{
+    RowNode *newRowNode;
+    newRowNode = (RowNode *)malloc(sizeof(RowNode));
+    newRowNode->row = row;
+    newRowNode->previous = NULL;
+    newRowNode->next = NULL;
+
+    if (rowLinkList->topNode == NULL)
+    {
+        rowLinkList->topNode = newRowNode;
+    }
+    else
+    {
+        newRowNode->previous = rowLinkList->topNode;
+        rowLinkList->topNode->next = newRowNode;
+        rowLinkList->topNode = newRowNode;
+    }
+}
+
 // Search keyword linearly
 Row searchRowLinearly(Row *rows, int length, char searchKey[])
 {
@@ -151,14 +192,47 @@ void bubbleSortRowsDesc(Row *rows, int length)
     }
 }
 
+void displayRow(Row row)
+{
+    printf("%s %d %d %.2f\n", row.column0, row.column1, row.column2, row.column3);
+}
+
 void displayRows(Row *rows, int length)
 {
     printf("********** ROWS ITEM **********\n");
     for (int i = 0; i < length; i++)
     {
-        printf("%s %d %d %.2f\n", rows[i].column0, rows[i].column1, rows[i].column2, rows[i].column3);
+        displayRow(rows[i]);
     }
     printf("********** ROWS ITEM **********\n");
+}
+
+void pushRowsToLinkList(RowLinkList *rowLinkList, Row *rows, int length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        pushRowToLinkList(rowLinkList, rows[i]);
+    }
+}
+
+void displayRowLinkList(RowLinkList *rowLinkList)
+{
+    RowNode *toRowNode = rowLinkList->topNode;
+    int dontExit = 1;
+    printf("********** ROWS LINKED LIST ITEM **********\n");
+    while (dontExit)
+    {
+        displayRow(toRowNode->row);
+        if (toRowNode->previous == NULL)
+        {
+            dontExit = 0;
+        }
+        else
+        {
+            toRowNode = toRowNode->previous;
+        }
+    }
+    printf("********** ROWS LINKED LIST ITEM **********\n");
 }
 
 void main()
@@ -201,11 +275,17 @@ void main()
 
     //    selectionSortRowsAsc(rows, rowsLength);
     //    displayRows(rows, rowsLength);
-    //    selectionSortRowsDesc(rows, rowsLength);
+    //        selectionSortRowsDesc(rows, rowsLength);
     //    displayRows(rows, rowsLength);
     writeRows(rows, rowsLength);
-    char keyword[] = "string1";
+    char keyword[] = "string0";
     int front = 0;
-    Row foundRow = searchRowBinary(rows, front, rowsLength - 1, keyword);
+    // Need to be sorted to make it work
+    //    Row foundRow = searchRowBinary(rows, front, rowsLength - 1, keyword);
+
+    RowLinkList rowLinkList;
+    createRowLinkList(&rowLinkList);
+    pushRowsToLinkList(&rowLinkList, rows, rowsLength);
+    displayRowLinkList(&rowLinkList);
     printf("");
 }
