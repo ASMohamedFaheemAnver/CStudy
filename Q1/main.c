@@ -165,7 +165,7 @@ void bubbleSortRowsAsc(Row *rows, int length)
     {
         for (int j = i + 1; j < length; j++)
         {
-            if (strcmp(rows[i].column0, rows[j].column0) < 0)
+            if (strcmp(rows[i].column0, rows[j].column0) > 0)
             {
                 Row temp = rows[i];
                 rows[i] = rows[j];
@@ -235,7 +235,8 @@ void displayRowLinkList(RowLinkList *rowLinkList)
     printf("********** ROWS LINKED LIST ITEM **********\n");
 }
 
-void displayRootInstruction(){
+void displayRootInstruction()
+{
     printf("********** INSTRUCTIONS **********\n");
     printf("Choose between following option to perform actions (Assuming you only type int)!\n");
     printf("1. Sort array\n");
@@ -245,11 +246,13 @@ void displayRootInstruction(){
     printf("********** INSTRUCTIONS **********\n");
 }
 
-void space(){
+void space()
+{
     printf("\n\n");
 }
 
-void selectionSortRowsDecisionMaker(Row *rows, int length){
+void selectionSortRowsDecisionMaker(Row *rows, int length)
+{
     printf("********** SELECTION SORTING INSTRUCTIONS **********\n");
     printf("Choose between following option to perform actions (Assuming you only type int)!\n");
     printf("1. Sort in ascending order\n");
@@ -259,25 +262,29 @@ void selectionSortRowsDecisionMaker(Row *rows, int length){
     space();
     printf("Enter your choice: ");
     scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-            selectionSortRowsAsc(rows, length);
-            space();
-            printf("********** AFTER ASCENDING SELECTION SORT **********\n");
-            displayRows(rows, length);
-            space();
-            break;
-        case 2:
-            selectionSortRowsDesc(rows, length);
-            space();
-            printf("********** AFTER DESCENDING SELECTION SORT **********\n");
-            displayRows(rows, length);
-            space();
-            break;
+    switch (choice)
+    {
+    case 1:
+        selectionSortRowsAsc(rows, length);
+        space();
+        printf("********** AFTER ASCENDING SELECTION SORT **********\n");
+        displayRows(rows, length);
+        writeRows(rows, length);
+        space();
+        break;
+    case 2:
+        selectionSortRowsDesc(rows, length);
+        space();
+        printf("********** AFTER DESCENDING SELECTION SORT **********\n");
+        displayRows(rows, length);
+        writeRows(rows, length);
+        space();
+        break;
     }
 }
 
-void bubbleSortRowsDecisionMaker(Row *rows, int length){
+void bubbleSortRowsDecisionMaker(Row *rows, int length)
+{
     printf("********** BUBBLE SORTING INSTRUCTIONS **********\n");
     printf("Choose between following option to perform actions (Assuming you only type int)!\n");
     printf("1. Sort in ascending order\n");
@@ -287,25 +294,29 @@ void bubbleSortRowsDecisionMaker(Row *rows, int length){
     space();
     printf("Enter your choice: ");
     scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-            bubbleSortRowsAsc(rows, length);
-            space();
-            printf("********** AFTER ASCENDING SELECTION SORT **********\n");
-            displayRows(rows, length);
-            space();
-            break;
-        case 2:
-            bubbleSortRowsDesc(rows, length);
-            space();
-            printf("********** AFTER DESCENDING SELECTION SORT **********\n");
-            displayRows(rows, length);
-            space();
-            break;
+    switch (choice)
+    {
+    case 1:
+        bubbleSortRowsAsc(rows, length);
+        space();
+        printf("********** AFTER ASCENDING BUBBLE SORT **********\n");
+        displayRows(rows, length);
+        writeRows(rows, length);
+        space();
+        break;
+    case 2:
+        bubbleSortRowsDesc(rows, length);
+        space();
+        printf("********** AFTER DESCENDING BUBBLE SORT **********\n");
+        displayRows(rows, length);
+        writeRows(rows, length);
+        space();
+        break;
     }
 }
 
-void sortRowsDecisionMaker(Row *rows, int length){
+void sortRowsDecisionMaker(Row *rows, int length)
+{
     printf("********** SORTING INSTRUCTIONS **********\n");
     printf("Choose between following option to perform actions (Assuming you only type int)!\n");
     printf("1. Use selection sort\n");
@@ -315,16 +326,54 @@ void sortRowsDecisionMaker(Row *rows, int length){
     space();
     printf("Enter your choice: ");
     scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-            selectionSortRowsDecisionMaker(rows, length);
-            break;
-        case 2:
-            bubbleSortRowsDecisionMaker(rows, length);
-            break;
+    switch (choice)
+    {
+    case 1:
+        selectionSortRowsDecisionMaker(rows, length);
+        break;
+    case 2:
+        bubbleSortRowsDecisionMaker(rows, length);
+        break;
     }
 }
 
+void searchRowDecisionMaker(Row *rows, int length)
+{
+    printf("Enter your search string: ");
+    char searchKey[50];
+    scanf("%s", &searchKey);
+    space();
+    printf("********** SEARCH INSTRUCTIONS **********\n");
+    printf("Choose between following option to perform actions (Assuming you only type int)!\n");
+    printf("1. Use linear search\n");
+    printf("2. Use binary search\n");
+    printf("********** SEARCH INSTRUCTIONS **********\n");
+    int choice = -1;
+    space();
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+    Row foundRow;
+    switch (choice)
+    {
+    case 1:
+        foundRow = searchRowLinearly(rows, length, searchKey);
+        break;
+    case 2:
+        selectionSortRowsAsc(rows, length);
+        foundRow = searchRowBinary(rows, 0, length - 1, searchKey);
+        break;
+    }
+    if (strcmp(foundRow.column0, "NULL") != 0)
+    {
+        printf("Found row with following column values\n");
+        displayRow(foundRow);
+    }
+    else
+    {
+        printf("String not found inside rows\n");
+    }
+    space();
+}
 
 void main()
 {
@@ -357,52 +406,41 @@ void main()
     // Closing the file pointer
     fclose(fp);
 
+    RowLinkList rowLinkList;
+
     // Displaying current text.txt structure.
     displayRows(rows, rowsLength);
     space();
     int dontExit = 1;
     int choice = -1;
-    while (dontExit){
+    while (dontExit)
+    {
         displayRootInstruction();
         space();
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        switch (choice) {
-            case 1:
-                space();
-                sortRowsDecisionMaker(rows, rowsLength);
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                printf("Exiting!");
-                dontExit = 0;
-                break;
+        switch (choice)
+        {
+        case 1:
+            space();
+            sortRowsDecisionMaker(rows, rowsLength);
+            break;
+        case 2:
+            space();
+            searchRowDecisionMaker(rows, rowsLength);
+            break;
+        case 3:
+            createRowLinkList(&rowLinkList);
+            selectionSortRowsDesc(rows, rowsLength);
+            pushRowsToLinkList(&rowLinkList, rows, rowsLength);
+            space();
+            displayRowLinkList(&rowLinkList);
+            space();
+            break;
+        case 4:
+            printf("Exiting!");
+            dontExit = 0;
+            break;
         }
     }
-
-    // Displaying the content
-    //    displayRows(rows, rowsLength);
-    //    bubbleSortRowsAsc(rows, rowsLength);
-    //    displayRows(rows, rowsLength);
-    //        bubbleSortRowsDesc(rows, rowsLength);
-    //    displayRows(rows, rowsLength);
-
-    //    selectionSortRowsAsc(rows, rowsLength);
-    //    displayRows(rows, rowsLength);
-    //        selectionSortRowsDesc(rows, rowsLength);
-    //    displayRows(rows, rowsLength);
-//    writeRows(rows, rowsLength);
-//    char keyword[] = "string0";
-//    int front = 0;
-    // Need to be sorted to make it work
-    //    Row foundRow = searchRowBinary(rows, front, rowsLength - 1, keyword);
-
-//    RowLinkList rowLinkList;
-//    createRowLinkList(&rowLinkList);
-//    pushRowsToLinkList(&rowLinkList, rows, rowsLength);
-//    displayRowLinkList(&rowLinkList);
-//    printf("");
 }
