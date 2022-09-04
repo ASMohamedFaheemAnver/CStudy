@@ -235,6 +235,97 @@ void displayRowLinkList(RowLinkList *rowLinkList)
     printf("********** ROWS LINKED LIST ITEM **********\n");
 }
 
+void displayRootInstruction(){
+    printf("********** INSTRUCTIONS **********\n");
+    printf("Choose between following option to perform actions (Assuming you only type int)!\n");
+    printf("1. Sort array\n");
+    printf("2. Search for a string in array\n");
+    printf("3. Insert sorted array into linked list and display it\n");
+    printf("4. Quit\n");
+    printf("********** INSTRUCTIONS **********\n");
+}
+
+void space(){
+    printf("\n\n");
+}
+
+void selectionSortRowsDecisionMaker(Row *rows, int length){
+    printf("********** SELECTION SORTING INSTRUCTIONS **********\n");
+    printf("Choose between following option to perform actions (Assuming you only type int)!\n");
+    printf("1. Sort in ascending order\n");
+    printf("2. Sort in descending order\n");
+    printf("********** SELECTION SORTING INSTRUCTIONS **********\n");
+    int choice = -1;
+    space();
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            selectionSortRowsAsc(rows, length);
+            space();
+            printf("********** AFTER ASCENDING SELECTION SORT **********\n");
+            displayRows(rows, length);
+            space();
+            break;
+        case 2:
+            selectionSortRowsDesc(rows, length);
+            space();
+            printf("********** AFTER DESCENDING SELECTION SORT **********\n");
+            displayRows(rows, length);
+            space();
+            break;
+    }
+}
+
+void bubbleSortRowsDecisionMaker(Row *rows, int length){
+    printf("********** BUBBLE SORTING INSTRUCTIONS **********\n");
+    printf("Choose between following option to perform actions (Assuming you only type int)!\n");
+    printf("1. Sort in ascending order\n");
+    printf("2. Sort in descending order\n");
+    printf("********** BUBBLE SORTING INSTRUCTIONS **********\n");
+    int choice = -1;
+    space();
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            bubbleSortRowsAsc(rows, length);
+            space();
+            printf("********** AFTER ASCENDING SELECTION SORT **********\n");
+            displayRows(rows, length);
+            space();
+            break;
+        case 2:
+            bubbleSortRowsDesc(rows, length);
+            space();
+            printf("********** AFTER DESCENDING SELECTION SORT **********\n");
+            displayRows(rows, length);
+            space();
+            break;
+    }
+}
+
+void sortRowsDecisionMaker(Row *rows, int length){
+    printf("********** SORTING INSTRUCTIONS **********\n");
+    printf("Choose between following option to perform actions (Assuming you only type int)!\n");
+    printf("1. Use selection sort\n");
+    printf("2. Use bubble sort\n");
+    printf("********** SORTING INSTRUCTIONS **********\n");
+    int choice = -1;
+    space();
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            selectionSortRowsDecisionMaker(rows, length);
+            break;
+        case 2:
+            bubbleSortRowsDecisionMaker(rows, length);
+            break;
+    }
+}
+
+
 void main()
 {
     // Array of struct to represent the whole text.txt file
@@ -266,6 +357,32 @@ void main()
     // Closing the file pointer
     fclose(fp);
 
+    // Displaying current text.txt structure.
+    displayRows(rows, rowsLength);
+    space();
+    int dontExit = 1;
+    int choice = -1;
+    while (dontExit){
+        displayRootInstruction();
+        space();
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                space();
+                sortRowsDecisionMaker(rows, rowsLength);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                printf("Exiting!");
+                dontExit = 0;
+                break;
+        }
+    }
+
     // Displaying the content
     //    displayRows(rows, rowsLength);
     //    bubbleSortRowsAsc(rows, rowsLength);
@@ -277,15 +394,15 @@ void main()
     //    displayRows(rows, rowsLength);
     //        selectionSortRowsDesc(rows, rowsLength);
     //    displayRows(rows, rowsLength);
-    writeRows(rows, rowsLength);
-    char keyword[] = "string0";
-    int front = 0;
+//    writeRows(rows, rowsLength);
+//    char keyword[] = "string0";
+//    int front = 0;
     // Need to be sorted to make it work
     //    Row foundRow = searchRowBinary(rows, front, rowsLength - 1, keyword);
 
-    RowLinkList rowLinkList;
-    createRowLinkList(&rowLinkList);
-    pushRowsToLinkList(&rowLinkList, rows, rowsLength);
-    displayRowLinkList(&rowLinkList);
-    printf("");
+//    RowLinkList rowLinkList;
+//    createRowLinkList(&rowLinkList);
+//    pushRowsToLinkList(&rowLinkList, rows, rowsLength);
+//    displayRowLinkList(&rowLinkList);
+//    printf("");
 }
