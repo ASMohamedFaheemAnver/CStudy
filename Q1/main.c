@@ -37,15 +37,22 @@ void main()
     RowLinkList rowLinkList;
     // Displaying current text.txt structure.
     displayRows(rows, rowsLength);
+    // Proper space
     space();
+    // Variable to break while loop
     int dontExit = 1;
+    // Variable to hold user choice
     int choice = -1;
     while (dontExit)
     {
+        // Display the instruction
         displayRootInstruction();
         space();
+        // Ask user choice
         printf("Enter your choice: ");
+        // Get user input
         scanf("%d", &choice);
+        // Make decision with user choice
         switch (choice)
         {
         case 1:
@@ -57,14 +64,19 @@ void main()
             searchRowDecisionMaker(rows, rowsLength);
             break;
         case 3:
+            // Initialize linked list
             createRowLinkList(&rowLinkList);
+            // Sort before inserting it into linked list
             selectionSortRowsDesc(rows, rowsLength);
+            // Push whole rows to created linked list
             pushRowsToLinkList(&rowLinkList, rows, rowsLength);
             space();
+            // Display linked list elements
             displayRowLinkList(&rowLinkList);
             space();
             break;
         case 4:
+            // Exit the program
             printf("Exiting!");
             dontExit = 0;
             break;

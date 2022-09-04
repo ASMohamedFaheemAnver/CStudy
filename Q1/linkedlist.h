@@ -9,4 +9,5 @@
 void createRowLinkList(RowLinkList *rowLinkList);
 void pushRowToLinkList(RowLinkList *rowLinkList, Row row);
 void pushRowsToLinkList(RowLinkList *rowLinkList, Row *rows, int length);
+void displayRowLinkList(RowLinkList *rowLinkList);
 #endif //Q1_LINKEDLIST_H

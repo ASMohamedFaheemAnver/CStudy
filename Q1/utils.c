@@ -144,7 +144,7 @@ void bubbleSortRowsDesc(Row *rows, int length)
         }
     }
 }
-
+// Display single row element
 void displayRow(Row row)
 {
     printf("%s %d %d %.2f\n", row.column0, row.column1, row.column2, row.column3);
@@ -162,25 +162,7 @@ void displayRows(Row *rows, int length)
 
 
 
-void displayRowLinkList(RowLinkList *rowLinkList)
-{
-    RowNode *toRowNode = rowLinkList->topNode;
-    int dontExit = 1;
-    printf("********** ROWS LINKED LIST ITEM **********\n");
-    while (dontExit)
-    {
-        displayRow(toRowNode->row);
-        if (toRowNode->previous == NULL)
-        {
-            dontExit = 0;
-        }
-        else
-        {
-            toRowNode = toRowNode->previous;
-        }
-    }
-    printf("********** ROWS LINKED LIST ITEM **********\n");
-}
+
 
 void displayRootInstruction()
 {
@@ -198,6 +180,7 @@ void space()
     printf("\n\n");
 }
 
+// Ask user to choose between descending and ascending order
 void selectionSortRowsDecisionMaker(Row *rows, int length)
 {
     printf("********** SELECTION SORTING INSTRUCTIONS **********\n");
@@ -212,10 +195,13 @@ void selectionSortRowsDecisionMaker(Row *rows, int length)
     switch (choice)
     {
         case 1:
+            // Sort rows using selection sort ascending order
             selectionSortRowsAsc(rows, length);
             space();
             printf("********** AFTER ASCENDING SELECTION SORT **********\n");
+            // Display the sorted rows
             displayRows(rows, length);
+            // Write it into file
             writeRows(rows, length);
             space();
             break;
@@ -262,6 +248,7 @@ void bubbleSortRowsDecisionMaker(Row *rows, int length)
     }
 }
 
+// Ask user to choose sorting technique
 void sortRowsDecisionMaker(Row *rows, int length)
 {
     printf("********** SORTING INSTRUCTIONS **********\n");
@@ -287,36 +274,48 @@ void sortRowsDecisionMaker(Row *rows, int length)
 void searchRowDecisionMaker(Row *rows, int length)
 {
     printf("Enter your search string: ");
+    // Hold user search string
     char searchKey[50];
+    // Get user input and assign it to searchKey
     scanf("%s", &searchKey);
     space();
+    // Instruction
     printf("********** SEARCH INSTRUCTIONS **********\n");
     printf("Choose between following option to perform actions (Assuming you only type int)!\n");
     printf("1. Use linear search\n");
     printf("2. Use binary search\n");
     printf("********** SEARCH INSTRUCTIONS **********\n");
+    // Hold user choice
     int choice = -1;
     space();
+    // Ask user to choose between linear and binary search
     printf("Enter your choice: ");
     scanf("%d", &choice);
+    // Hold found row value
     Row foundRow;
     switch (choice)
     {
         case 1:
+            // Use linear search
             foundRow = searchRowLinearly(rows, length, searchKey);
             break;
         case 2:
+            // Sort before binary search
             selectionSortRowsAsc(rows, length);
+            // Use binary search
             foundRow = searchRowBinary(rows, 0, length - 1, searchKey);
             break;
     }
+    // Check row exist or not
     if (strcmp(foundRow.column0, "NULL") != 0)
     {
+        // Display found row to user
         printf("Found row with following column values\n");
         displayRow(foundRow);
     }
     else
     {
+        // Display not found message
         printf("String not found inside rows\n");
     }
     space();
