@@ -55,6 +55,24 @@ build CMakeFiles/Q1.dir/main.c.o: C_COMPILER__Q1_Debug /home/freedom/Desktop/Git
   OBJECT_DIR = CMakeFiles/Q1.dir
   OBJECT_FILE_DIR = CMakeFiles/Q1.dir
 
+build CMakeFiles/Q1.dir/core-types.c.o: C_COMPILER__Q1_Debug /home/freedom/Desktop/GitHub/CStudy/Q1/core-types.c || cmake_object_order_depends_target_Q1
+  DEP_FILE = CMakeFiles/Q1.dir/core-types.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/Q1.dir
+  OBJECT_FILE_DIR = CMakeFiles/Q1.dir
+
+build CMakeFiles/Q1.dir/linkedlist.c.o: C_COMPILER__Q1_Debug /home/freedom/Desktop/GitHub/CStudy/Q1/linkedlist.c || cmake_object_order_depends_target_Q1
+  DEP_FILE = CMakeFiles/Q1.dir/linkedlist.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/Q1.dir
+  OBJECT_FILE_DIR = CMakeFiles/Q1.dir
+
+build CMakeFiles/Q1.dir/utils.c.o: C_COMPILER__Q1_Debug /home/freedom/Desktop/GitHub/CStudy/Q1/utils.c || cmake_object_order_depends_target_Q1
+  DEP_FILE = CMakeFiles/Q1.dir/utils.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/Q1.dir
+  OBJECT_FILE_DIR = CMakeFiles/Q1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Q1
@@ -63,7 +81,7 @@ build CMakeFiles/Q1.dir/main.c.o: C_COMPILER__Q1_Debug /home/freedom/Desktop/Git
 #############################################
 # Link the executable Q1
 
-build Q1: C_EXECUTABLE_LINKER__Q1_Debug CMakeFiles/Q1.dir/main.c.o
+build Q1: C_EXECUTABLE_LINKER__Q1_Debug CMakeFiles/Q1.dir/main.c.o CMakeFiles/Q1.dir/core-types.c.o CMakeFiles/Q1.dir/linkedlist.c.o CMakeFiles/Q1.dir/utils.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Q1.dir
   POST_BUILD = :
