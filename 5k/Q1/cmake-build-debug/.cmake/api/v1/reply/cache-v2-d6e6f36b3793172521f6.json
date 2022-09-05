@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/freedom/Desktop/GitHub/CStudy/Q1/cmake-build-debug"
+			"value" : "/home/freedom/Desktop/GitHub/CStudy/5k/Q1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -463,7 +463,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/freedom/Desktop/GitHub/CStudy/Q1"
+			"value" : "/home/freedom/Desktop/GitHub/CStudy/5k/Q1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -995,7 +995,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/freedom/Desktop/GitHub/CStudy/Q1/cmake-build-debug"
+			"value" : "/home/freedom/Desktop/GitHub/CStudy/5k/Q1/cmake-build-debug"
 		},
 		{
 			"name" : "Q1_IS_TOP_LEVEL",
@@ -1019,7 +1019,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/freedom/Desktop/GitHub/CStudy/Q1"
+			"value" : "/home/freedom/Desktop/GitHub/CStudy/5k/Q1"
 		}
 	],
 	"kind" : "cache",
