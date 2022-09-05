@@ -7,7 +7,6 @@
 #include <string.h>
 #include "core-types.h"
 
-
 // Search keyword linearly
 Row searchRowLinearly(Row *rows, int length, char searchKey[])
 {
@@ -160,10 +159,6 @@ void displayRows(Row *rows, int length)
     printf("********** ROWS ITEM **********\n");
 }
 
-
-
-
-
 void displayRootInstruction()
 {
     printf("********** INSTRUCTIONS **********\n");
@@ -194,25 +189,25 @@ void selectionSortRowsDecisionMaker(Row *rows, int length)
     scanf("%d", &choice);
     switch (choice)
     {
-        case 1:
-            // Sort rows using selection sort ascending order
-            selectionSortRowsAsc(rows, length);
-            space();
-            printf("********** AFTER ASCENDING SELECTION SORT **********\n");
-            // Display the sorted rows
-            displayRows(rows, length);
-            // Write it into file
-            writeRows(rows, length);
-            space();
-            break;
-        case 2:
-            selectionSortRowsDesc(rows, length);
-            space();
-            printf("********** AFTER DESCENDING SELECTION SORT **********\n");
-            displayRows(rows, length);
-            writeRows(rows, length);
-            space();
-            break;
+    case 1:
+        // Sort rows using selection sort ascending order
+        selectionSortRowsAsc(rows, length);
+        space();
+        printf("********** AFTER ASCENDING SELECTION SORT **********\n");
+        // Display the sorted rows
+        displayRows(rows, length);
+        // Write it into file
+        writeRows(rows, length);
+        space();
+        break;
+    case 2:
+        selectionSortRowsDesc(rows, length);
+        space();
+        printf("********** AFTER DESCENDING SELECTION SORT **********\n");
+        displayRows(rows, length);
+        writeRows(rows, length);
+        space();
+        break;
     }
 }
 
@@ -229,22 +224,22 @@ void bubbleSortRowsDecisionMaker(Row *rows, int length)
     scanf("%d", &choice);
     switch (choice)
     {
-        case 1:
-            bubbleSortRowsAsc(rows, length);
-            space();
-            printf("********** AFTER ASCENDING BUBBLE SORT **********\n");
-            displayRows(rows, length);
-            writeRows(rows, length);
-            space();
-            break;
-        case 2:
-            bubbleSortRowsDesc(rows, length);
-            space();
-            printf("********** AFTER DESCENDING BUBBLE SORT **********\n");
-            displayRows(rows, length);
-            writeRows(rows, length);
-            space();
-            break;
+    case 1:
+        bubbleSortRowsAsc(rows, length);
+        space();
+        printf("********** AFTER ASCENDING BUBBLE SORT **********\n");
+        displayRows(rows, length);
+        writeRows(rows, length);
+        space();
+        break;
+    case 2:
+        bubbleSortRowsDesc(rows, length);
+        space();
+        printf("********** AFTER DESCENDING BUBBLE SORT **********\n");
+        displayRows(rows, length);
+        writeRows(rows, length);
+        space();
+        break;
     }
 }
 
@@ -262,12 +257,12 @@ void sortRowsDecisionMaker(Row *rows, int length)
     scanf("%d", &choice);
     switch (choice)
     {
-        case 1:
-            selectionSortRowsDecisionMaker(rows, length);
-            break;
-        case 2:
-            bubbleSortRowsDecisionMaker(rows, length);
-            break;
+    case 1:
+        selectionSortRowsDecisionMaker(rows, length);
+        break;
+    case 2:
+        bubbleSortRowsDecisionMaker(rows, length);
+        break;
     }
 }
 
@@ -295,16 +290,16 @@ void searchRowDecisionMaker(Row *rows, int length)
     Row foundRow;
     switch (choice)
     {
-        case 1:
-            // Use linear search
-            foundRow = searchRowLinearly(rows, length, searchKey);
-            break;
-        case 2:
-            // Sort before binary search
-            selectionSortRowsAsc(rows, length);
-            // Use binary search
-            foundRow = searchRowBinary(rows, 0, length - 1, searchKey);
-            break;
+    case 1:
+        // Use linear search
+        foundRow = searchRowLinearly(rows, length, searchKey);
+        break;
+    case 2:
+        // Sort before binary search
+        selectionSortRowsAsc(rows, length);
+        // Use binary search
+        foundRow = searchRowBinary(rows, 0, length - 1, searchKey);
+        break;
     }
     // Check row exist or not
     if (strcmp(foundRow.column0, "NULL") != 0)
