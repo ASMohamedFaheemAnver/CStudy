@@ -66,7 +66,7 @@ void writeRows(Row *rows, int length)
     // Creating file pointer
     FILE *fp;
     // Opening file with name output.txt in writing mode
-    fp = fopen("../output.txt", "w");
+    fp = fopen("output.txt", "w");
     // Write the file with concatenated string
     fprintf(fp, "%s", text);
     // Closing the file pointer
@@ -277,7 +277,7 @@ void searchRowDecisionMaker(Row *rows, int length)
     // Hold user search string
     char searchKey[50];
     // Get user input and assign it to searchKey
-    scanf("%s", &searchKey);
+    scanf("%s", searchKey);
     space();
     // Instruction
     printf("********** SEARCH INSTRUCTIONS **********\n");

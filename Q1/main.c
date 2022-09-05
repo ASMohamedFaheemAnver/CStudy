@@ -17,7 +17,7 @@ void main()
     // Get row value into this variable
     char *line;
     // Opening the file and assigning it into file pointer fp
-    fp = fopen("../text.txt", "r");
+    fp = fopen("text.txt", "r");
     // Track current line
     int i = 0;
     // Read the whole file
