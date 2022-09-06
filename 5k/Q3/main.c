@@ -75,7 +75,8 @@ void displayLinkedListInAlphaOrder(TvNode *root)
     }
 }
 
-void clearTvsText(){
+void clearTvsText()
+{
     FILE *fp;
     // Opening file with name output.txt in writing mode
     fp = fopen("demo.txt", "w");
@@ -115,6 +116,46 @@ void displayQueue()
     }
 }
 
+TvNode *minValue(TvNode *root)
+{
+    if (!root)
+        return NULL;
+    if (root->left == NULL)
+        return root;
+    else
+        return minValue(root->left);
+}
+
+TvNode *removeFromTvLinkedList(TvNode *root, char orderedTv[])
+{
+    if (!root)
+        return NULL;
+    if (strcmp(orderedTv, root->tv) < 0)
+        root->left = removeFromTvLinkedList(root->left, orderedTv);
+    if (strcmp(orderedTv, root->tv) > 0)
+        root->right = removeFromTvLinkedList(root->right, orderedTv);
+    else
+    {
+        TvNode *temp;
+        if (root->left == NULL)
+        {
+            temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            temp = root->left;
+            free(root);
+            return temp;
+        }
+        temp = minValue(root->right);
+        strcpy(root->tv, temp->tv);
+        root->right = removeFromTvLinkedList(root->right, temp->tv);
+        return root;
+    }
+}
+
 void displayFrontQueue()
 {
     if (isQueueEmpty())
@@ -129,13 +170,15 @@ void displayFrontQueue()
 
 void removeFrontQueue()
 {
-    if(isQueueEmpty()){
+    if (isQueueEmpty())
+    {
         printf("Queue is empty!\n");
     }
-    else{
-        TvQueueNode *p= queueFront;
+    else
+    {
+        TvQueueNode *p = queueFront;
         queueFront = queueFront->link;
-        p->link=NULL;
+        p->link = NULL;
     }
 }
 
@@ -257,13 +300,18 @@ void main()
             insertIntoQueue(orderTv);
             space();
             break;
-            case 9:
-                space();
-                clearTvsText();
-                writeLinkedListInAlphaOrder(rootSortedLinkedList);
-                printf("TVs.txt updated!");
-                space();
-                break;
+        case 6:
+            space();
+            rootSortedLinkedList = removeFromTvLinkedList(rootSortedLinkedList, "Hisense A7G Smart TV");
+            space();
+            break;
+        case 9:
+            space();
+            clearTvsText();
+            writeLinkedListInAlphaOrder(rootSortedLinkedList);
+            printf("TVs.txt updated!");
+            space();
+            break;
         case 10:
             // Exit the program
             printf("Exiting!");
