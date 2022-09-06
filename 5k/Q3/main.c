@@ -47,6 +47,61 @@ void insertIntoQueue(char tv[])
 
 int isRemoved = -1;
 
+#define MAX 10
+typedef enum
+{
+    TRUE,
+    FALSE
+} boolean;
+char successfulOrders[MAX][100];
+int top = -1;
+
+boolean isStackFull()
+{
+    return (top == MAX - 1);
+}
+
+boolean isStackEmpty()
+{
+    return (top == -1);
+}
+
+void pushSuccessfulOrders(char tv[])
+{
+    if (isStackFull())
+        printf("Order stack overflow!\n");
+    else
+    {
+        top++;
+        strcpy(successfulOrders[top], tv);
+    }
+}
+
+char *popSuccessfulOrders()
+{
+    if (isStackEmpty())
+    {
+        printf("Order stack is empty!\n");
+        return NULL;
+    }
+    else
+    {
+        return (successfulOrders[top--]);
+    }
+}
+
+void displayLastSuccessfulOrder()
+{
+    printf("********** LAST SUCCESSFUL ORDER **********\n");
+    if (isStackEmpty())
+        printf("Successful order stack is empty!\n");
+    else
+    {
+        printf("%s\n", successfulOrders[top]);
+    }
+    printf("********** LAST SUCCESSFUL ORDER **********\n");
+}
+
 TvNode *insertIntoLinkedList(TvNode *root, char tv[])
 {
     if (!root)
@@ -74,8 +129,6 @@ void displayLinkedListInAlphaOrder(TvNode *root)
         displayLinkedListInAlphaOrder(root->left);
         printf("%s\n", root->tv);
         displayLinkedListInAlphaOrder(root->right);
-    } else{
-        printf("Stock is empty!\n");
     }
 }
 
@@ -140,9 +193,9 @@ TvNode *removeFromTvLinkedList(TvNode *root, char orderedTv[100])
         root->right = removeFromTvLinkedList(root->right, orderedTv);
     else
     {
-        if(strcmp(root->tv, orderedTv)!=0)
+        if (strcmp(root->tv, orderedTv) != 0)
             // NOT FOUND
-            return  root;
+            return root;
 
         isRemoved = 1;
         TvNode *temp;
@@ -193,7 +246,8 @@ void removeFrontQueue()
         TvQueueNode *p = queueFront;
         queueFront = queueFront->link;
         p->link = NULL;
-        if(queueFront == NULL){
+        if (queueFront == NULL)
+        {
             queueRear = NULL;
         }
     }
@@ -283,7 +337,11 @@ void main()
         case 1:
             space();
             printf("********** LINKEDLIST CONTENT **********\n");
-            displayLinkedListInAlphaOrder(rootSortedLinkedList);
+            if(rootSortedLinkedList != NULL){
+                displayLinkedListInAlphaOrder(rootSortedLinkedList);
+            } else{
+                printf("Tv stock is empty!\n");
+            }
             printf("********** LINKEDLIST CONTENT **********\n");
             space();
             break;
@@ -320,15 +378,34 @@ void main()
         case 6:
             space();
             isRemoved = -1;
-            char *frontOrder= returnFrontQueue();
+            char *frontOrder = returnFrontQueue();
             rootSortedLinkedList = removeFromTvLinkedList(rootSortedLinkedList, frontOrder);
-            if(isRemoved == 1){
+            if (isRemoved == 1)
+            {
                 removeFrontQueue();
                 printf("Order successfully processed!");
-            } else{
+                pushSuccessfulOrders(frontOrder);
+            }
+            else
+            {
                 removeFrontQueue();
                 printf("Order can't be processed!");
             }
+            space();
+            break;
+        case 7:
+            space();
+            char *order = popSuccessfulOrders();
+            if (order != NULL)
+            {
+                insertIntoLinkedList(rootSortedLinkedList, order);
+                printf("Order cancelled successfully!");
+            }
+            space();
+            break;
+        case 8:
+            space();
+            displayLastSuccessfulOrder();
             space();
             break;
         case 9:

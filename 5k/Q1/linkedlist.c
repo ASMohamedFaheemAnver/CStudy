@@ -8,7 +8,6 @@
 #include "core-types.h"
 #include "utils.h"
 
-
 // Initialize linked list
 void createRowLinkList(RowLinkList *rowLinkList)
 {
