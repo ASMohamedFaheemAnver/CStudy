@@ -389,7 +389,7 @@ void main()
             else
             {
                 removeFrontQueue();
-                printf("Order can't be processed!");
+                printf("Tv not found, Order can't be processed!");
             }
             space();
             break;
