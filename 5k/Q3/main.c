@@ -74,6 +74,8 @@ void displayLinkedListInAlphaOrder(TvNode *root)
         displayLinkedListInAlphaOrder(root->left);
         printf("%s\n", root->tv);
         displayLinkedListInAlphaOrder(root->right);
+    } else{
+        printf("Stock is empty!\n");
     }
 }
 
@@ -191,6 +193,9 @@ void removeFrontQueue()
         TvQueueNode *p = queueFront;
         queueFront = queueFront->link;
         p->link = NULL;
+        if(queueFront == NULL){
+            queueRear = NULL;
+        }
     }
 }
 
@@ -318,10 +323,11 @@ void main()
             char *frontOrder= returnFrontQueue();
             rootSortedLinkedList = removeFromTvLinkedList(rootSortedLinkedList, frontOrder);
             if(isRemoved == 1){
-                // removed from queue
-                printf("REMOVED");
+                removeFrontQueue();
+                printf("Order successfully processed!");
             } else{
-                printf("NOT FOUND");
+                removeFrontQueue();
+                printf("Order can't be processed!");
             }
             space();
             break;
