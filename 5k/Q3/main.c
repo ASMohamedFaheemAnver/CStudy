@@ -45,6 +45,8 @@ void insertIntoQueue(char tv[])
     }
 }
 
+int isRemoved = -1;
+
 TvNode *insertIntoLinkedList(TvNode *root, char tv[])
 {
     if (!root)
@@ -126,7 +128,7 @@ TvNode *minValue(TvNode *root)
         return minValue(root->left);
 }
 
-TvNode *removeFromTvLinkedList(TvNode *root, char orderedTv[])
+TvNode *removeFromTvLinkedList(TvNode *root, char orderedTv[100])
 {
     if (!root)
         return NULL;
@@ -136,6 +138,11 @@ TvNode *removeFromTvLinkedList(TvNode *root, char orderedTv[])
         root->right = removeFromTvLinkedList(root->right, orderedTv);
     else
     {
+        if(strcmp(root->tv, orderedTv)!=0)
+            // NOT FOUND
+            return  root;
+
+        isRemoved = 1;
         TvNode *temp;
         if (root->left == NULL)
         {
@@ -166,6 +173,11 @@ void displayFrontQueue()
     {
         printf("%s\n", queueFront->tv);
     }
+}
+
+char *returnFrontQueue()
+{
+    return queueFront->tv;
 }
 
 void removeFrontQueue()
@@ -233,7 +245,7 @@ void menu()
     printf("4. Display all orders\n");
     printf("5. Add order to queue\n");
     printf("6. Process the next order\n");
-    printf("7. Process the next order\n");
+    printf("7. Cancel last order\n");
     printf("8. Display info of last order\n");
     printf("9. Update TV file\n");
     printf("10. Quit\n");
@@ -302,7 +314,15 @@ void main()
             break;
         case 6:
             space();
-            rootSortedLinkedList = removeFromTvLinkedList(rootSortedLinkedList, "Hisense A7G Smart TV");
+            isRemoved = -1;
+            char *frontOrder= returnFrontQueue();
+            rootSortedLinkedList = removeFromTvLinkedList(rootSortedLinkedList, frontOrder);
+            if(isRemoved == 1){
+                // removed from queue
+                printf("REMOVED");
+            } else{
+                printf("NOT FOUND");
+            }
             space();
             break;
         case 9:
