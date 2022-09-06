@@ -3,14 +3,49 @@
 #include <stdlib.h>
 
 // Row node for link list block
-typedef struct rowNode
+typedef struct tvNode
 {
     char tv[100];
-    struct rowNode *left;
-    struct rowNode *right;
+    struct tvNode *left;
+    struct tvNode *right;
 } TvNode;
 
-TvNode *insert(TvNode *root, char tv[])
+typedef struct tvQueueNode
+{
+    char tv[100];
+    struct tvQueueNode *link;
+} TvQueueNode;
+
+TvQueueNode *queueFront = NULL;
+TvQueueNode *queueRear = NULL;
+
+int isQueueEmpty()
+{
+    if (queueFront == NULL && queueRear == NULL)
+        return 1;
+    else
+        return 0;
+}
+
+void insertIntoQueue(char tv[])
+{
+    TvQueueNode *temp;
+    temp = (TvQueueNode *)malloc(sizeof(TvQueueNode));
+    strcpy(temp->tv, tv);
+    temp->link = NULL;
+    if (isQueueEmpty())
+    {
+        queueFront = temp;
+        queueRear = temp;
+    }
+    else
+    {
+        queueRear->link = temp;
+        queueRear = temp;
+    }
+}
+
+TvNode *insertIntoLinkedList(TvNode *root, char tv[])
 {
     if (!root)
     {
@@ -21,22 +56,51 @@ TvNode *insert(TvNode *root, char tv[])
         return (root);
     }
     if (strcmp(root->tv, tv) > 0)
-        root->left = insert(root->left, tv);
+        root->left = insertIntoLinkedList(root->left, tv);
     else
     {
         if (strcmp(root->tv, tv) < 0)
-            root->right = insert(root->right, tv);
+            root->right = insertIntoLinkedList(root->right, tv);
     }
     return (root);
 }
 
-void displayAlphaOrder(TvNode *root)
+void displayLinkedListInAlphaOrder(TvNode *root)
 {
     if (root != NULL)
     {
-        displayAlphaOrder(root->left);
+        displayLinkedListInAlphaOrder(root->left);
         printf("%s\n", root->tv);
-        displayAlphaOrder(root->right);
+        displayLinkedListInAlphaOrder(root->right);
+    }
+}
+
+void displayQueue()
+{
+    if (isQueueEmpty())
+    {
+        printf("Queue is empty!\n");
+    }
+    else
+    {
+        TvQueueNode *p = queueFront;
+        while (p != NULL)
+        {
+            printf("%s\n", p->tv);
+            p = p->link;
+        }
+    }
+}
+
+void displayFrontQueue()
+{
+    if (isQueueEmpty())
+    {
+        printf("Queue is empty!\n");
+    }
+    else
+    {
+        printf("%s\n", queueFront->tv);
     }
 }
 
@@ -53,11 +117,32 @@ TvNode *readTvs(TvNode *rootSortedLinkedList)
     // Read the whole file
     while (getline(&line, &len, fp) != -1)
     {
-        rootSortedLinkedList = insert(rootSortedLinkedList, strtok(line, "\n"));
+        line = strtok(line, "\n");
+        rootSortedLinkedList = insertIntoLinkedList(rootSortedLinkedList, line);
     }
     // Closing the file pointer
     fclose(fp);
     return (rootSortedLinkedList);
+}
+
+void readTvOrders()
+{
+    // Opening the file pointer
+    FILE *fp;
+    // Line buffer size
+    size_t len = 0;
+    // Get row value into this variable
+    char *line;
+    // Opening the file and assigning it into file pointer fp
+    fp = fopen("orders.txt", "r");
+    // Read the whole file
+    while (getline(&line, &len, fp) != -1)
+    {
+        line = strtok(line, "\n");
+        insertIntoQueue(line);
+    }
+    // Closing the file pointer
+    fclose(fp);
 }
 
 void menu()
@@ -86,6 +171,7 @@ void main()
 {
     TvNode *rootSortedLinkedList = NULL;
     rootSortedLinkedList = readTvs(rootSortedLinkedList);
+    readTvOrders();
 
     // Make decision with user choice
     int dontExit = 1;
@@ -102,15 +188,30 @@ void main()
         case 1:
             space();
             printf("********** LINKEDLIST CONTENT **********\n");
-            displayAlphaOrder(rootSortedLinkedList);
+            displayLinkedListInAlphaOrder(rootSortedLinkedList);
             printf("********** LINKEDLIST CONTENT **********\n");
             space();
             break;
         case 2:
             space();
-            printf("********** LINKEDLIST CONTENT **********\n");
-            displayAlphaOrder(rootSortedLinkedList);
-            printf("********** LINKEDLIST CONTENT **********\n");
+            char tv[100];
+            printf("Enter new tv to add to the stock : ");
+            scanf(" %[^\n]", tv);
+            insertIntoLinkedList(rootSortedLinkedList, tv);
+            space();
+            break;
+        case 3:
+            space();
+            printf("********** NEXT ORDER **********\n");
+            displayFrontQueue();
+            printf("********** NEXT ORDER **********\n");
+            space();
+            break;
+        case 4:
+            space();
+            printf("********** QUEUE CONTENT **********\n");
+            displayQueue();
+            printf("********** QUEUE CONTENT **********\n");
             space();
             break;
         case 10:
