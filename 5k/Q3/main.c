@@ -136,7 +136,7 @@ void clearTvsText()
 {
     FILE *fp;
     // Opening file with name output.txt in writing mode
-    fp = fopen("demo.txt", "w");
+    fp = fopen("TVs.txt", "w");
     // Write the file with concatenated string
     fprintf(fp, "%s", "");
     // Closing the file pointer
@@ -149,7 +149,7 @@ void writeLinkedListInAlphaOrder(TvNode *root)
     {
         writeLinkedListInAlphaOrder(root->left);
         FILE *fp;
-        fp = fopen("demo.txt", "a");
+        fp = fopen("TVs.txt", "a");
         fprintf(fp, "%s\n", root->tv);
         fclose(fp);
         writeLinkedListInAlphaOrder(root->right);
