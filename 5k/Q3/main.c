@@ -75,6 +75,29 @@ void displayLinkedListInAlphaOrder(TvNode *root)
     }
 }
 
+void clearTvsText(){
+    FILE *fp;
+    // Opening file with name output.txt in writing mode
+    fp = fopen("demo.txt", "w");
+    // Write the file with concatenated string
+    fprintf(fp, "%s", "");
+    // Closing the file pointer
+    fclose(fp);
+}
+
+void writeLinkedListInAlphaOrder(TvNode *root)
+{
+    if (root != NULL)
+    {
+        writeLinkedListInAlphaOrder(root->left);
+        FILE *fp;
+        fp = fopen("demo.txt", "a");
+        fprintf(fp, "%s\n", root->tv);
+        fclose(fp);
+        writeLinkedListInAlphaOrder(root->right);
+    }
+}
+
 void displayQueue()
 {
     if (isQueueEmpty())
@@ -101,6 +124,18 @@ void displayFrontQueue()
     else
     {
         printf("%s\n", queueFront->tv);
+    }
+}
+
+void removeFrontQueue()
+{
+    if(isQueueEmpty()){
+        printf("Queue is empty!\n");
+    }
+    else{
+        TvQueueNode *p= queueFront;
+        queueFront = queueFront->link;
+        p->link=NULL;
     }
 }
 
@@ -214,6 +249,21 @@ void main()
             printf("********** QUEUE CONTENT **********\n");
             space();
             break;
+        case 5:
+            space();
+            char orderTv[100];
+            printf("Enter new your new order tv name : ");
+            scanf(" %[^\n]", orderTv);
+            insertIntoQueue(orderTv);
+            space();
+            break;
+            case 9:
+                space();
+                clearTvsText();
+                writeLinkedListInAlphaOrder(rootSortedLinkedList);
+                printf("TVs.txt updated!");
+                space();
+                break;
         case 10:
             // Exit the program
             printf("Exiting!");
